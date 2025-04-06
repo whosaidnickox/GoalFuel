@@ -1,0 +1,71 @@
+workflows:
+  ios-workflow:
+    name: iOS Native
+    max_build_duration: 120
+    instance_type: mac_mini_m2
+    integrations:
+      app_store_connect: acceavit
+    environment:
+      ios_signing:
+        provisioning_profiles:
+         - profile: wiqfcrazu
+        certificates:
+         - certificate: shoiwsbsa
+      vars:
+        BUNDLE_ID: "iuqpsao.wiwuqsobpr.wisubopwasv"
+        XCODE_PROJECT: "GoalFuel.xcodeproj"
+        XCODE_SCHEME: "GoalFuel"
+        APP_STORE_APPLE_ID: 6744299681
+      xcode: 16.0
+
+    scripts:
+      - name: Set up code signing settings on Xcode project
+        script: |
+            gem update xcodeproj
+            xcode-project use-profiles --project *.xcodeproj
+
+      - name: Increment build number
+        script: |
+          cd $CM_BUILD_DIR
+          LATEST_BUILD_NUMBER=$(app-store-connect get-latest-app-store-build-number "$APP_STORE_APPLE_ID")
+          agvtool new-version -all $(($LATEST_BUILD_NUMBER + 1))
+
+      - name: Build ipa for distribution
+        script: |
+          xcode-project build-ipa \
+            --project "$XCODE_PROJECT" \
+            --scheme "$XCODE_SCHEME" \
+            --archive-flags="-destination 'generic/platform=iOS'"
+
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+
+    publishing:
+      email:
+        recipients:
+          - nicu161299@gmail.com
+        notify:
+          success: true
+          failure: true
+
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
+        submit_to_app_store: false
+
+
+
+
+
+
+
+
+
+
+
+
+
+
