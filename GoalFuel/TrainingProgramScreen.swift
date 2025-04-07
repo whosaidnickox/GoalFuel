@@ -118,9 +118,6 @@ struct TrainingProgramScreen: View {
                         .padding(.horizontal)
                         .padding(.bottom, 100)
                     }
-                    .padding(.bottom, 45)
-                    
-
                 }
                 
                 ZStack(alignment: .bottom) {
@@ -131,7 +128,7 @@ struct TrainingProgramScreen: View {
                      }
                      .buttonStyle(.plain)
                 }
-                 .padding(.bottom, 60)
+                 .padding(.bottom, 85)
                  .ignoresSafeArea(.keyboard)
 
             }

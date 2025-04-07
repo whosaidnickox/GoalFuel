@@ -110,10 +110,10 @@ struct TimerSetupScreen: View {
                         .background(AppColors.accent)
                         .cornerRadius(12)
                         .padding()
-                        
+                        .padding(.bottom, 85)
+
                         Spacer()
                     }
-                    .padding(.bottom, 45)
                 }
             }
             .navigationBarHidden(true)

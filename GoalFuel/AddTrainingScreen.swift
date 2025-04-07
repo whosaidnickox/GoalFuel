@@ -155,9 +155,9 @@ struct AddTrainingScreen: View {
                         .padding(.top, 16)
                         .ignoresSafeArea(.keyboard)
                     }
-                    .padding() // Отступы для всего контента ScrollView
+                    .padding(.horizontal) // Отступы для всего контента ScrollView
+                    .padding(.bottom, 85)
                 }
-                .padding(.bottom, 45)
                 .modifier(NumberPadDoneButton())
                 .ignoresSafeArea(.keyboard)
             }

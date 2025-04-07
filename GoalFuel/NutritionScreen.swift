@@ -64,9 +64,9 @@ struct NutritionScreen: View {
                             AddMealButton()
                         }
                         .padding(.top, 16)
+                        .padding(.bottom, 85)
                     }
                     .padding(.top, 24)
-                    .padding(.bottom, 45)
                 }
             }
             .navigationBarHidden(true)

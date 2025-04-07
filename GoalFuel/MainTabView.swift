@@ -54,18 +54,24 @@ struct CustomTabBar: View {
                 Spacer()
             }
         }
-        .frame(height: 80) // Высота таббара
+        .frame(height: 80)
         .background(
+            ZStack {
+                AppColors.background
+                Image("tabbarBackground")
+                    .resizable()
+            }
             // Используем tabbarBackground из Assets, если он там есть
             // Если нет, можно использовать цвет или градиент
-            Image("tabbarBackground")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-            // Добавляем размытие, если нужно (как в Figma)
-            // .blur(radius: 10)
         )
-        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous)) // Скругление как в Figma
+        .clipShape(
+            RoundedRectangle(
+                cornerRadius: 16,
+                style: .continuous
+            )
+        ) // Скругление как в Figma
         .shadow(radius: 5)
+        .frame(height: 80) // Высота таббара
         .ignoresSafeArea(.keyboard)
 // Небольшая тень для выделения
         
@@ -76,28 +82,5 @@ struct MainTabView_Previews: PreviewProvider {
     static var previews: some View {
         MainTabView()
             .preferredColorScheme(.dark) // Чтобы лучше видеть белый текст/иконки
-    }
-}
-struct Swiper: ViewModifier {
-    var onDismiss: () -> Void
-    @State private var offset: CGSize = .zero
-
-    func body(content: Content) -> some View {
-        content
-//            .offset(x: offset.width)
-            .animation(.interactiveSpring(), value: offset)
-            .simultaneousGesture(
-                DragGesture()
-                    .onChanged { value in
-                                      self.offset = value.translation
-                                  }
-                                  .onEnded { value in
-                                      if value.translation.width > 70 {
-                                          onDismiss()
-                                  
-                                      }
-                                      self.offset = .zero
-                                  }
-            )
     }
 }

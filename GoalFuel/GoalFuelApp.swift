@@ -9,10 +9,10 @@ import SwiftUI
 
 @main
 struct GoalFuelApp: App {
-    // Использование @AppStorage для хранения состояния онбординга, 
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    // Использование @AppStorage для хранения состояния онбординга,
     // автоматически синхронизируется с UserDefaults
     @AppStorage("isOnboardingCompleted") var isOnboardingCompleted: Bool = false
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     // При первом запуске приложения проверяем UserDefaults
     init() {
@@ -32,7 +32,6 @@ struct GoalFuelApp: App {
         }
     }
 }
-
 class AppDelegate: NSObject, UIApplicationDelegate {
     static var asiuqzoptqxbt = UIInterfaceOrientationMask.portrait {
         didSet {
